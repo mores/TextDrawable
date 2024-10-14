@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
 }
 
 android {
@@ -30,4 +31,23 @@ android {
 }
 
 dependencies {
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'io.github.mores'
+            artifactId = 'textdrawable'
+            version = '1.0.1'
+            artifact "$buildDir/outputs/aar/textdrawable-release.aar"
+
+        }
+    }
+
+    //publish to filesystem repo
+    repositories{
+        maven {
+            url "$buildDir/repo"
+        }
+    }
 }
