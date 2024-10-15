@@ -31,26 +31,54 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {
 }
 
 publishing {
+
     publications {
         maven(MavenPublication) {
+
             groupId = 'io.github.mores'
             artifactId = 'textdrawable'
             version = '1.0.1'
             artifact "$buildDir/outputs/aar/textdrawable-release.aar"
 
-        }
-    }
+            pom {
+                name = "$groupId:$artifactId"
+                description = 'light-weight library provides images with letter/text like the Gmail app'
+                url = 'https://github.com/mores/TextDrawable'
 
-    //publish to filesystem repo
-    repositories{
-        maven {
-            url "$buildDir/repo"
+                developers {
+                    developer {
+                        id = 'amulyakhare'
+                        name = 'Amulya Khare'
+                        email = 'amulyakhare@gmail.com'
+                    }
+                }
+
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://www.opensource.org/licenses/mit-license.php'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:git://github.com/mores/TextDrawable.git'
+                    developerConnection = 'scm:git:ssh://github.com:mores/TextDrawable.git'
+                    url = 'https://github.com/mores/TextDrawable/tree/master'
+                }
+            }
         }
     }
 }

@@ -1,10 +1,24 @@
+#!/bin/sh
+
 ./gradlew clean
 ./gradlew build
 ./gradlew --console=verbose publishToMavenLocal
 
+./gradlew textdrawable:javaDocReleaseJar
+cp textdrawable/build/intermediates/java_doc_jar/release/release-javadoc.jar ~/.m2/repository/io/github/mores/textdrawable/1.0.1/textdrawable-1.0.1-javadoc.jar
+
+./gradlew textdrawable:sourceReleaseJar
+cp textdrawable/build/intermediates/source_jar/release/release-sources.jar ~/.m2/repository/io/github/mores/textdrawable/1.0.1/textdrawable-1.0.1-sources.jar
+
+cd ~/.m2/repository/io/github/mores/textdrawable/1.0.1/
 gpg --clear-sign textdrawable-1.0.1.aar
 gpg --clear-sign textdrawable-1.0.1.pom
+gpg --clear-sign textdrawable-1.0.1-javadoc.jar
+gpg --clear-sign textdrawable-1.0.1-sources.jar
 
-jar cf bundle.jar textdrawable-1.0.1.aar textdrawable-1.0.1.aar.asc textdrawable-1.0.1.pom textdrawable-1.0.1.pom.asc
+jar cf bundle.jar textdrawable-1.0.1.aar textdrawable-1.0.1.aar.asc textdrawable-1.0.1.pom textdrawable-1.0.1.pom.asc textdrawable-1.0.1-javadoc.jar textdrawable-1.0.1-javadoc.jar.asc textdrawable-1.0.1-sources.jar textdrawable-1.0.1-sources.jar.asc
 
-upload to https://central.sonatype.com/publishing/deployments
+cd -
+
+#upload to https://central.sonatype.com/publishing/deployments
+
