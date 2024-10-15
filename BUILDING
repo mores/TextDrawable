@@ -20,13 +20,13 @@ do
 	sha1sum --quiet $FILE > $FILE.sha1
 done
 
-gpg --clear-sign textdrawable-1.0.1.aar
-gpg --clear-sign textdrawable-1.0.1.pom
-gpg --clear-sign textdrawable-1.0.1-javadoc.jar
-gpg --clear-sign textdrawable-1.0.1-sources.jar
+gpg -ab textdrawable-1.0.1.aar
+gpg -ab textdrawable-1.0.1.pom
+gpg -ab textdrawable-1.0.1-javadoc.jar
+gpg -ab textdrawable-1.0.1-sources.jar
 
 cd ~/.m2/repository
-zip textdrawable-1.0.1.zip io/github/mores/textdrawable/1.0.1/*
+zip /tmp/textdrawable-1.0.1.zip io/github/mores/textdrawable/1.0.1/*
 
 cd -
 
