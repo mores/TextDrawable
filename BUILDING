@@ -11,12 +11,22 @@ cp textdrawable/build/intermediates/java_doc_jar/release/release-javadoc.jar ~/.
 cp textdrawable/build/intermediates/source_jar/release/release-sources.jar ~/.m2/repository/io/github/mores/textdrawable/1.0.1/textdrawable-1.0.1-sources.jar
 
 cd ~/.m2/repository/io/github/mores/textdrawable/1.0.1/
+
+FILES="textdrawable-1.0.1-javadoc.jar textdrawable-1.0.1-sources.jar textdrawable-1.0.1.pom textdrawable-1.0.1.aar"
+
+for FILE in $FILES
+do
+	md5sum --quiet $FILE > $FILE.md5
+	sha1sum --quiet $FILE > $FILE.sha1
+done
+
 gpg --clear-sign textdrawable-1.0.1.aar
 gpg --clear-sign textdrawable-1.0.1.pom
 gpg --clear-sign textdrawable-1.0.1-javadoc.jar
 gpg --clear-sign textdrawable-1.0.1-sources.jar
 
-jar cf bundle.jar textdrawable-1.0.1.aar textdrawable-1.0.1.aar.asc textdrawable-1.0.1.pom textdrawable-1.0.1.pom.asc textdrawable-1.0.1-javadoc.jar textdrawable-1.0.1-javadoc.jar.asc textdrawable-1.0.1-sources.jar textdrawable-1.0.1-sources.jar.asc
+cd ~/.m2/repository
+zip textdrawable-1.0.1.zip io/github/mores/textdrawable/1.0.1/*
 
 cd -
 
