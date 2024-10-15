@@ -1,3 +1,10 @@
 ./gradlew clean
 ./gradlew build
 ./gradlew --console=verbose publishToMavenLocal
+
+gpg --clear-sign textdrawable-1.0.1.aar
+gpg --clear-sign textdrawable-1.0.1.pom
+
+jar cf bundle.jar textdrawable-1.0.1.aar textdrawable-1.0.1.aar.asc textdrawable-1.0.1.pom textdrawable-1.0.1.pom.asc
+
+upload to https://central.sonatype.com/publishing/deployments
